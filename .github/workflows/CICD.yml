@@ -1,0 +1,66 @@
+name: CICD
+
+on:
+  push:
+    branches:
+      - main
+env:
+  # Setting
+  ROOT_ENV: ${{ secrets.ROOT_ENV }}
+  REACT_ENV: ${{ secrets.REACT_ENV }}
+  SPRINGBOOT_ENV: ${{ secrets.SPRINGBOOT_ENV }}
+  APPLICAION_PROPERTIES: ${{ secrets.APPLICAION_PROPERTIES }}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        if: contains(github.ref, 'main')
+        uses: actions/checkout@v2
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - name: Create root.env file
+        working-directory: .
+        run: |
+          echo "${{ secrets.ROOT_ENV }}" > .env
+        shell: bash
+
+      - name: Create react-app.env file
+        working-directory: react-app
+        run: |
+          echo "${{ secrets.REACT_ENV }}" > .env
+        shell: bash
+      
+      - name: Create springboot-app.env file
+        working-directory: springboot-app
+        run: |
+          echo "${{ secrets.SPRINGBOOT_ENV }}" > .env
+        shell: bash
+
+      - name: create application.properties
+        working-directory: springboot-app/src/main/resources
+        run: |
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > application.properties
+        shell: bash
+
+      - name: Set executable permission for gradlew
+        working-directory: springboot-app
+        run: chmod +x gradlew
+
+      - name: Build Spring Boot app
+        working-directory: springboot-app
+        run: ./gradlew build
+
+      - name: test springboot-app
+        working-directory: springboot-app
+        run: ./gradlew test
+
+      # - name: test react-app
+      #   working-directory: react-app
+      #   run: npm test -- --watchAll=false
