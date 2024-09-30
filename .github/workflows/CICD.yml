@@ -18,6 +18,15 @@ env:
   REACT_ECR_REPOSITORY: cicd-githubactions-ecr-ecs/react
   IMAGE_TAG: 0.1.0
 
+  # ECS
+  ECS_CLUSTER: cicd-githubactions-ecs-ecr-cluster           # ECS 클러스터 이름
+  SPRINGBOOT_ECS_TASK_DEFINITION: cicd-task-springboot      # 태스크 정의의 이름
+  REACT_ECS_TASK_DEFINITION: cicd-task-react                # 태스크 정의의 이름
+  SPRINGBOOT_CONTAINER_NAME: springboot-container
+  REACT_CONTAINER_NAME: react-container
+  SPRINGBOOT_ECS_SERVICE: cicd-service-springboot
+  REACT_ECS_SERVICE: cicd-service-react
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -133,8 +142,44 @@ jobs:
         run: | 
           docker tag springboot-container:latest ${{ env.ECR_REGISTRY }}/${{ env.SPRINGBOOT_ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.ECR_REGISTRY }}/${{ env.SPRINGBOOT_ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          # echo "IMAGE1=${{ env.ECR_REGISTRY }}/${{ env.SPRINGBOOT_ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" >> $GITHUB_ENV
       
       - name: Tag and push React Docker image
         run: | 
           docker tag react-container:latest ${{ env.ECR_REGISTRY }}/${{ env.REACT_ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.ECR_REGISTRY }}/${{ env.REACT_ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          # echo "IMAGE2=${{ env.ECR_REGISTRY }}/${{ env.REACT_ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" >> $GITHUB_ENV
+
+      # 최신 Springboot 태스크 정의 가져오기
+      - name: 최신 React 태스크 정의 가져오기
+        id: get-latest-springboot
+        run: |
+          latest_springboot_task_def=$(aws ecs describe-task-definition --task-definition ${{ env.SPRINGBOOT_ECS_TASK_DEFINITION }} --query 'taskDefinition.revision' --output text)
+          echo "LATEST_SPRINGBOOT_REVISION=${latest_springboot_task_def}" >> $GITHUB_ENV
+
+      # 최신 React 태스크 정의 가져오기
+      - name: 최신 React 태스크 정의 가져오기
+        id: get-latest-react
+        run: |
+          latest_react_task_def=$(aws ecs describe-task-definition --task-definition ${{ env.REACT_ECS_TASK_DEFINITION }} --query 'taskDefinition.revision' --output text)
+          echo "LATEST_REACT_REVISION=${latest_react_task_def}" >> $GITHUB_ENV
+
+      # 최신 태스크 정의로 Spring Boot 서비스 배포
+      - name: Amazon ECS 태스크 정의 배포 (Springboot)
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          # task-definition: ${{ env.SPRINGBOOT_ECS_TASK_DEFINITION }}:${{ env.LATEST_SPRINGBOOT_REVISION }}
+          task-definition: cicd-task-springboot.json
+          service: ${{ env.SPRINGBOOT_ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true # 서비스 업데이트 후, ECS가 새 태스크가 정상적으로 실행되고 있는지 확인 후 다음 단계 진행
+
+      # 최신 태스크 정의로 React 서비스 배포
+      - name: Amazon ECS 태스크 정의 배포 (React)
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          # task-definition: ${{ env.REACT_ECS_TASK_DEFINITION }}:${{ env.LATEST_REACT_REVISION }}
+          task-definition: cicd-task-react.json
+          service: ${{ env.REACT_ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true # 서비스 업데이트 후, ECS가 새 태스크가 정상적으로 실행되고 있는지 확인 후 다음 단계 진행
