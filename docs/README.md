@@ -8,6 +8,7 @@
 >* ver 1.0.0.
 >   * Init: 프로젝트 세팅 ( React + Spring Boot )
 >   * CORS 설정
+>   * CICD 파이프라인 추가
 
 # 1. 프로그램 (프로젝트) 설명
 
@@ -71,6 +72,15 @@
 # 4. 디렉토리 및 파일 설명
 ```
     /CICD_GITHUBACTIONS-ECS-ECR
+    ├── .github/
+    │   └── workflows
+    │       └── CICD.yml 
+    │
+    ├── docs/
+    │   ├── PULL_REQUEST_TEMPLATE.md
+    │   ├── README.md
+    │   └── secrets.png
+    │
     ├── react-app/
     │   ├── public/
     │   │   └── vite.svg
