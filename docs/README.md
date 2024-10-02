@@ -23,6 +23,7 @@
     - `HOST_PORT` : 외부에서 컨테이너의 애플리케이션에 접근하는데 사용하는 포트 ( 노출되도 괜찮은 포트 )
     - `SERVER_PORT` : 애플리케이션이 컨테이너 내에서 통신하는 포트 ( 노출되면 안되는 포트 )
     - Vite에서는 보안이 필요한 환경변수의 유출을 막기 위해서 `VITE_`으로 시작하지 않는 환경변수는 무시되기 때문에 `VITE_SPRINGBOOT_HOST_PORT`가 필요합니다.
+    - `IP_ADDRESS` : 사용하는 도메인 혹은 로드밸런서 DNS이름으로 설정해주세요. 만약 로컬 환경이라면 `localhost`로 설정해주세요.
     - `root/.env`
         ```
         # 예시
@@ -37,11 +38,15 @@
         # 예시
         VITE_REACT_SERVER_PORT=3000
         VITE_SPRINGBOOT_HOST_PORT=8081
+
+        VITE_IP_ADDRESS=localhost
         ```
     - `springboot-app/.env`
         ```
         # 예시
         REACT_HOST_PORT=3001
+
+        IP_ADDRESS=localhost
         ```
 - 본 프로젝트는 Springboot를 사용하므로 `springboot-app/src/main/resources/application.properties.template` 파일을 참고하여 `application.properties` 파일을 생성해주세요.
     - `springboot-app/src/main/resources/application.properties`
