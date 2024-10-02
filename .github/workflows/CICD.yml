@@ -6,7 +6,6 @@ on:
       - main
 env:
   # Setting
-  ROOT_ENV: ${{ secrets.ROOT_ENV }}
   REACT_ENV: ${{ secrets.REACT_ENV }}
   SPRINGBOOT_ENV: ${{ secrets.SPRINGBOOT_ENV }}
   APPLICAION_PROPERTIES: ${{ secrets.APPLICAION_PROPERTIES }}
@@ -40,12 +39,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          
-      - name: Create root.env file
-        working-directory: .
-        run: |
-          echo "${{ secrets.ROOT_ENV }}" > .env
-        shell: bash
 
       - name: Create react-app.env file
         working-directory: react-app
@@ -94,12 +87,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          
-      - name: Create root.env file
-        working-directory: .
-        run: |
-          echo "${{ secrets.ROOT_ENV }}" > .env
-        shell: bash
 
       - name: Create react-app.env file
         working-directory: react-app

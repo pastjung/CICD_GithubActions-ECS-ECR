@@ -24,7 +24,7 @@
     - `SERVER_PORT` : 애플리케이션이 컨테이너 내에서 통신하는 포트 ( 노출되면 안되는 포트 )
     - Vite에서는 보안이 필요한 환경변수의 유출을 막기 위해서 `VITE_`으로 시작하지 않는 환경변수는 무시되기 때문에 `VITE_SPRINGBOOT_HOST_PORT`가 필요합니다.
     - `IP_ADDRESS` : 사용하는 도메인 혹은 로드밸런서 DNS이름으로 설정해주세요. 만약 로컬 환경이라면 `localhost`로 설정해주세요.
-    - `root/.env`
+    - `root/.env` : 로컬 환경에서 docker-compose.yml 파일을 실행시키기 위해 필요한 환경 변수 파일입니다.
         ```
         # 예시
         SPRINGBOOT_HOST_PORT=8081
@@ -33,7 +33,7 @@
         REACT_HOST_PORT=3001
         REACT_SERVER_PORT=3000
         ```
-    - `react-app/.env`
+    - `react-app/.env` : React 애플리케이션 환경을 실행시키기 위해 필요한 환경 변수 파일입니다.
         ```
         # 예시
         VITE_REACT_SERVER_PORT=3000
@@ -41,7 +41,7 @@
 
         VITE_IP_ADDRESS=localhost
         ```
-    - `springboot-app/.env`
+    - `springboot-app/.env` : Springboot 애플리케이션 환경을 실행시키기 위해 필요한 환경 변수 파일입니다.
         ```
         # 예시
         REACT_HOST_PORT=3001
