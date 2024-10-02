@@ -16,7 +16,7 @@ env:
   ECR_REGISTRY: public.ecr.aws/e0z3f2i0
   SPRINGBOOT_ECR_REPOSITORY: cicd-githubactions-ecr-ecs/springboot
   REACT_ECR_REPOSITORY: cicd-githubactions-ecr-ecs/react
-  IMAGE_TAG: 0.1.0
+  IMAGE_TAG: latest
 
   # ECS
   ECS_CLUSTER: cicd-githubactions-ecs-ecr-cluster           # ECS 클러스터 이름
