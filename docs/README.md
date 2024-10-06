@@ -9,11 +9,14 @@
 >   * Init: 프로젝트 세팅 ( React + Spring Boot )
 >   * CORS 설정
 >   * CICD 파이프라인 추가 ( Github Actions + AWS ECR ( Public ) & ECS ( Fargate ) ) + Application Load Balancer
->   * JSON 형식의 ECS 작업 파일을 사용하여 배포 ( 2024.10.06 )
+>   * JSON 형식의 ECS 작업 파일을 추가
+>   * ver. 1.0.0 배포 ( 2024.10.06 )
+
 >* ver 1.0.1.
 >   * CICD 파이프라인 변경 ( Github Actions + AWS ECR ( Private ) & ECS ( Fargate ) ) + Network Load Balancer
 >   * AWS ECS 태스크 JSON 파일 제거 -> Github Actions CLI를 사용해 불러오기
 >   * Github Actions의 CD 작업 병렬화 ( React와 Springboot 작업 분리 )
+>   * ver. 1.0.1 배포 ( 2024.10.06 )
 
 # 1. 프로그램 (프로젝트) 설명
 
