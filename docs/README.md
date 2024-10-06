@@ -12,6 +12,7 @@
 >   * JSON 형식의 ECS 작업 파일을 사용하여 배포 ( 2024.10.06 )
 >* ver 1.0.1.
 >   * CICD 파이프라인 변경 ( Github Actions + AWS ECR ( Private ) & ECS ( Fargate ) ) + Network Load Balancer
+>   * AWS ECS 태스크 JSON 파일 제거 -> Github Actions CLI를 사용해 불러오기
 
 # 1. 프로그램 (프로젝트) 설명
 
@@ -144,8 +145,6 @@
     ├── .env.template
     ├── .gitattributes
     ├── .gitignore
-    ├── cicd-task-react.json
-    ├── cicd-task-springboot.json
     └── docker-compose.yml
 ```
 
