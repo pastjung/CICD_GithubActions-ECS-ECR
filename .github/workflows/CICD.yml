@@ -8,7 +8,7 @@ env:
   # Setting
   REACT_ENV: ${{ secrets.REACT_ENV }}
   SPRINGBOOT_ENV: ${{ secrets.SPRINGBOOT_ENV }}
-  APPLICAION_PROPERTIES: ${{ secrets.APPLICAION_PROPERTIES }}
+  APPLICATION_PROPERTIES: ${{ secrets.APPLTICAION_PROPERTIES }}
 
   # ECR
   AWS_REGION: ap-northeast-2
@@ -43,19 +43,19 @@ jobs:
       - name: Create react-app.env file
         working-directory: react-app
         run: |
-          echo "${{ secrets.REACT_ENV }}" > .env
+          echo "${{ env.REACT_ENV }}" > .env
         shell: bash
       
       - name: Create springboot-app.env file
         working-directory: springboot-app
         run: |
-          echo "${{ secrets.SPRINGBOOT_ENV }}" > .env
+          echo "${{ env.SPRINGBOOT_ENV }}" > .env
         shell: bash
 
       - name: create application.properties
         working-directory: springboot-app/src/main/resources
         run: |
-          echo "${{ secrets.APPLICATION_PROPERTIES }}" > application.properties
+          echo "${{ env.APPLICATION_PROPERTIES }}" > application.properties
         shell: bash
 
       - name: Set executable permission for gradlew
@@ -91,19 +91,19 @@ jobs:
       - name: Create react-app.env file
         working-directory: react-app
         run: |
-          echo "${{ secrets.REACT_ENV }}" > .env
+          echo "${{ env.REACT_ENV }}" > .env
         shell: bash
       
       - name: Create springboot-app.env file
         working-directory: springboot-app
         run: |
-          echo "${{ secrets.SPRINGBOOT_ENV }}" > .env
+          echo "${{ env.SPRINGBOOT_ENV }}" > .env
         shell: bash
 
       - name: create application.properties
         working-directory: springboot-app/src/main/resources
         run: |
-          echo "${{ secrets.APPLICATION_PROPERTIES }}" > application.properties
+          echo "${{ env.APPLICATION_PROPERTIES }}" > application.properties
         shell: bash
       
       - name: Build springboot-app
