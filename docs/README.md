@@ -4,12 +4,14 @@
 > last updated at: September 20, 2024
 
 
-## Current: ver. 1.0.0<br/>
+## Current: ver. 1.0.1<br/>
 >* ver 1.0.0.
 >   * Init: 프로젝트 세팅 ( React + Spring Boot )
 >   * CORS 설정
->   * CICD 파이프라인 추가 ( Github Actions + AWS ECR ( Public ) & ECS ( Fargate ) )
+>   * CICD 파이프라인 추가 ( Github Actions + AWS ECR ( Public ) & ECS ( Fargate ) ) + Application Load Balancer
 >   * JSON 형식의 ECS 작업 파일을 사용하여 배포 ( 2024.10.06 )
+>* ver 1.0.1.
+>   * CICD 파이프라인 변경 ( Github Actions + AWS ECR ( Private ) & ECS ( Fargate ) ) + Network Load Balancer
 
 # 1. 프로그램 (프로젝트) 설명
 
