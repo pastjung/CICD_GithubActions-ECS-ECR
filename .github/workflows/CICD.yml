@@ -12,7 +12,7 @@ env:
 
   # ECR
   AWS_REGION: ap-northeast-2
-  ECR_REGISTRY: public.ecr.aws/e0z3f2i0
+  ECR_REGISTRY: 381025169114.dkr.ecr.ap-northeast-2.amazonaws.com
   SPRINGBOOT_ECR_REPOSITORY: cicd-githubactions-ecr-ecs/springboot
   REACT_ECR_REPOSITORY: cicd-githubactions-ecr-ecs/react
   IMAGE_TAG: latest
@@ -121,9 +121,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Login to Amazon ECR Public
-        run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
+      # - name: Login to Amazon ECR Public
+      #   run: |
+      #     aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
+
+      - name: Login to Amazon ECR Private
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Tag and push Spring Boot Docker image
         run: | 
