@@ -13,6 +13,7 @@
 >* ver 1.0.1.
 >   * CICD 파이프라인 변경 ( Github Actions + AWS ECR ( Private ) & ECS ( Fargate ) ) + Network Load Balancer
 >   * AWS ECS 태스크 JSON 파일 제거 -> Github Actions CLI를 사용해 불러오기
+>   * Github Actions의 CD 작업 병렬화 ( React와 Springboot 작업 분리 )
 
 # 1. 프로그램 (프로젝트) 설명
 
