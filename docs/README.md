@@ -1,6 +1,6 @@
 # Docker를 사용한 프로젝트를 AWS ECS와 ECR를 사용해 배포하는 방법 학습
 
-> Initial written at September 29, 2024 <br/>
+> Initial written at october 06, 2024 <br/>
 > last updated at: September 20, 2024
 
 
@@ -8,7 +8,8 @@
 >* ver 1.0.0.
 >   * Init: 프로젝트 세팅 ( React + Spring Boot )
 >   * CORS 설정
->   * CICD 파이프라인 추가
+>   * CICD 파이프라인 추가 ( Github Actions + AWS ECR ( Public ) & ECS ( Fargate ) )
+>   * JSON 형식의 ECS 작업 파일을 사용하여 배포 ( 2024.10.06 )
 
 # 1. 프로그램 (프로젝트) 설명
 
@@ -141,8 +142,9 @@
     ├── .env.template
     ├── .gitattributes
     ├── .gitignore
-    ├── docker-compose.yml
-    └── README.md
+    ├── cicd-task-react.json
+    ├── cicd-task-springboot.json
+    └── docker-compose.yml
 ```
 
 # 5. 프로젝트 세팅
